@@ -1,40 +1,195 @@
+/* 
+Desafio Batalha Naval - Estácio de Sá
+Disciplina - Introdução à Programação de Computadores
+Aluno: Jairçon Freitas Sodré Pereira Júnior
+Nível MESTRE
+*/
+
+
 #include <stdio.h>
 
-// Desafio Batalha Naval - MateCheck
-// Este código inicial serve como base para o desenvolvimento do sistema de Batalha Naval.
-// Siga os comentários para implementar cada parte do desafio.
+// Dimensões do Tabuleiro
+#define LINHA 10
+#define COLUNA 10
+#define LIMITE 10
+
+// Dimnensões dos Navios e Habilidades
+#define NAVIO 3 // Dimensões e número impresso no tabuleiro
+#define HABILIDADE 5 // Número impresso no tabuleiro
+#define iHABILIDADE 1 // Define o número que aparece no raio de influencia da habilidade
 
 int main() {
-    // Nível Novato - Posicionamento dos Navios
-    // Sugestão: Declare uma matriz bidimensional para representar o tabuleiro (Ex: int tabuleiro[5][5];).
-    // Sugestão: Posicione dois navios no tabuleiro, um verticalmente e outro horizontalmente.
-    // Sugestão: Utilize `printf` para exibir as coordenadas de cada parte dos navios.
 
-    // Nível Aventureiro - Expansão do Tabuleiro e Posicionamento Diagonal
-    // Sugestão: Expanda o tabuleiro para uma matriz 10x10.
-    // Sugestão: Posicione quatro navios no tabuleiro, incluindo dois na diagonal.
-    // Sugestão: Exiba o tabuleiro completo no console, mostrando 0 para posições vazias e 3 para posições ocupadas.
-
-    // Nível Mestre - Habilidades Especiais com Matrizes
-    // Sugestão: Crie matrizes para representar habilidades especiais como cone, cruz, e octaedro.
-    // Sugestão: Utilize estruturas de repetição aninhadas para preencher as áreas afetadas por essas habilidades no tabuleiro.
-    // Sugestão: Exiba o tabuleiro com as áreas afetadas, utilizando 0 para áreas não afetadas e 1 para áreas atingidas.
-
-    // Exemplos de exibição das habilidades:
-    // Exemplo para habilidade em cone:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 1 1 1 1 1
+    char linha[LINHA];
+    int coluna[COLUNA];
+    int tabuleiro[LINHA][COLUNA];
     
-    // Exemplo para habilidade em octaedro:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 0 0 1 0 0
+/* Variáveis de Posicionamento dos Navios
+O posicionamento leva em consideração o Índice central dos Navios
+*/
 
-    // Exemplo para habilidade em cruz:
-    // 0 0 1 0 0
-    // 1 1 1 1 1
-    // 0 0 1 0 0
+    // Horizontal
+    char navioHorizontalLetra = 'b';
+    int navioHorizontalNumero = 2;
+    
+    // Vertical
+    char navioVerticalLetra = 'a';
+    int navioVerticalNumero = 5;
+    
+    // Diagonal/Baixo
+    char navioDiagonalBaixoLetra = 'd';
+    int navioDiagonalBaixoNumero = 6;
+    
+    // Diagonal/Cima
+    char navioDiagonalCimaLetra = 'f';
+    int navioDiagonalCimaNumero = 4;
 
+/*  
+    Variáveis de Posicionamento das Habilidades Especiais
+    O posicionamento leva em consideração o Índice central onde ficará posicionado a Habilidade Especial
+*/
+
+    // Cone
+    char coneLetra = 'h';
+    int coneNumero = 5;
+    
+    // Cruz
+    char cruzLetra = 'g';
+    int cruzNumero = 9;
+    
+    // Octaedro
+    char octaedroLetra = 'i';
+    int octaedroNumero = 2;
+
+// Criação do Tabuleiro
+    
+    for (int i = 0; i < LINHA; i++) // Preenchendo vetor "coluna"
+        {
+            coluna[i] = i + 1;
+        }
+
+    for (int i = 0; i < LINHA; i++) // Preenchendo matriz principal e gerando o Tabuleiro
+    {
+
+        for (int j = 0; j < COLUNA; j++)
+            {
+                tabuleiro[i][j] = 0;
+            }
+
+    }
+
+// Correção do tipo Char e ajuste para inicio no Índex 0
+
+    navioHorizontalLetra -= 98; navioHorizontalNumero -= 1;
+    navioVerticalLetra -= 97; navioVerticalNumero -= 2;
+    navioDiagonalBaixoLetra -= 98; navioDiagonalBaixoNumero -= 2;
+    navioDiagonalCimaLetra -= 98; navioDiagonalCimaNumero -= 0;
+    coneLetra -= 97; coneNumero -= 2;
+    cruzLetra -= 97; cruzNumero -= 1;
+    octaedroLetra -= 97; octaedroNumero -= 1;
+
+    if (navioDiagonalBaixoLetra > LIMITE || navioVerticalNumero > LIMITE || navioDiagonalCimaLetra > LIMITE || navioDiagonalCimaNumero > LIMITE ||
+        navioHorizontalLetra > LIMITE || navioHorizontalNumero > LIMITE || navioVerticalLetra > LIMITE || navioVerticalNumero > LIMITE)
+    {
+       printf("Escolha uma posição que não ultrapasse %d linhas ou colunas\n\n", LIMITE);
+       
+    }
+    
+
+    int navioHorizontal[2] =    {navioHorizontalNumero, navioHorizontalLetra};
+    int navioVertical[2] =      {navioVerticalNumero, navioVerticalLetra};
+    int navioDiagonalBaixo[2] = {navioDiagonalBaixoNumero, navioDiagonalBaixoLetra};
+    int navioDiagonalCima[2] =  {navioDiagonalCimaNumero, navioDiagonalCimaLetra};
+
+
+// Posicionamento dos Navios
+
+    for (int i = 0; i < NAVIO; i++)
+    {
+        tabuleiro[navioVertical[0] + i][navioVertical[1]] = NAVIO;      // Navio Vertical
+        tabuleiro[navioHorizontal[0]][navioHorizontal[1] + i] = NAVIO;  // Navio Horizontal
+        tabuleiro[navioDiagonalCima[0] - i][navioDiagonalCima[1] + i] = NAVIO;  // Navio Diagonal/Subindo
+        tabuleiro[navioDiagonalBaixo[0] + i][navioDiagonalBaixo[1] + i] = NAVIO;  // Navio Diagonal/Descendo
+    }
+
+// Posicionamento das Hibiliades especiais
+
+    // Cone
+
+    for (int i = 0; i < 3; i++) {
+       for (int j = coneLetra - i; j <= coneLetra + i; j++) {
+           if (tabuleiro[i + coneNumero][j] != 0) // Verifica se tem navio dentro do raio da habilidade
+           {
+            tabuleiro[i + coneNumero][j] = iHABILIDADE;
+           } else {
+            tabuleiro[i + coneNumero][j] = HABILIDADE;
+           }
+        }
+    }
+   
+
+    // Cruz
+
+    for (int i = 0; i <= 2; i++)
+    {
+       if (tabuleiro[cruzNumero + i - 1][cruzLetra] != 0) // Verifica se tem navio dentro do raio da habilidade
+        {
+        tabuleiro[cruzNumero + i - 1][cruzLetra] = iHABILIDADE;
+        } else {
+        tabuleiro[cruzNumero + i - 1][cruzLetra] = HABILIDADE;
+        }
+
+        for (int j = 0; j <= 4; j++){
+            if (tabuleiro[cruzNumero][cruzLetra + j - 2] > 1 && tabuleiro[cruzNumero][cruzLetra + j - 2] < HABILIDADE) // Verifica se tem navio dentro do raio da habilidade
+            {
+            tabuleiro[cruzNumero][cruzLetra + j - 2] = iHABILIDADE;
+            } else { 
+            tabuleiro[cruzNumero][cruzLetra + j - 2] = HABILIDADE;
+            }
+        }
+    }
+
+    // Octaedro
+
+    for (int i = 0; i <= 2; i++)
+    {
+        if (tabuleiro[octaedroNumero + i - 1][octaedroLetra] != 0 || 
+            tabuleiro[octaedroNumero][octaedroLetra + i - 1] != 0) // Verifica se tem navio dentro do raio da habilidade
+        {
+            tabuleiro[octaedroNumero + i - 1][octaedroLetra] = iHABILIDADE;
+            tabuleiro[octaedroNumero][octaedroLetra + i - 1] = iHABILIDADE;
+        } else 
+        {
+            tabuleiro[octaedroNumero + i - 1][octaedroLetra] = HABILIDADE;
+            tabuleiro[octaedroNumero][octaedroLetra + i - 1] = HABILIDADE;
+        }
+    }
+
+
+// - Impressão do Tabuleiro
+
+printf("#\t"); // Impressão do Primeiro índice da Linha
+
+for (char i = 0; i < LINHA; i++) // Impressão da Linha 
+    {
+        linha[i] = 'A' + i;
+        printf("%c\t", linha[i]);
+
+    }
+
+printf("\n"); // Quebra de linha após cabeçalho (ABC)
+
+for (int i = 0; i < LINHA; i++)
+{
+    printf("%d\t", coluna[i]); // Impressão da coluna antes do tabuleiro
+    
+    for (int j = 0; j < COLUNA; j++)
+    {
+        printf("%d\t", tabuleiro[i][j]);
+    }
+
+    printf("\n");
+}
     return 0;
+
 }
