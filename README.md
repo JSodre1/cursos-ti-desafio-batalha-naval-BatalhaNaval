@@ -1,103 +1,68 @@
-# ⚠️ Importante!!!
-Você pode escolher qualquer um dos desafios para desenvolver. Sinta-se à vontade para começar pelo desafio que mais lhe interessa.
+# Batalha Naval: Simulação com Tabuleiro e Habilidades Especiais
 
-# Desafio Batalha Naval - Três Níveis de Complexidade
+Este projeto foi desenvolvido como parte da disciplina **Introdução à Programação de Computadores** na **Estácio de Sá**. Ele simula um tabuleiro de Batalha Naval, com navios posicionados estrategicamente e habilidades especiais que influenciam áreas específicas no tabuleiro.
 
-Bem-vindo ao desafio "Batalha Naval"! Este projeto desafiará suas habilidades de programação utilizando vetores e matrizes para simular um jogo de Batalha Naval, dividido em três níveis: Novato, Aventureiro e Mestre. Em cada nível, novas funcionalidades serão adicionadas, tornando o desafio progressivamente mais complexo.
+## 🚀 Funcionalidades
 
-## 🏅 Nível Novato
+1. **Criação de um tabuleiro 10x10**:
+   - O tabuleiro é inicializado com valores `0`, representando células vazias.
 
-Neste nível inicial, você implementará a lógica básica de posicionamento de navios em um tabuleiro de Batalha Naval utilizando vetores bidimensionais.
+2. **Posicionamento dos navios**:
+   - Navios são posicionados nas seguintes formas:
+     - **Vertical**
+     - **Horizontal**
+     - **Diagonal (subindo e descendo)**
+   - Cada navio é representado pelo valor `3`.
 
-### 🚩 Objetivos:
-- **Posicionamento dos Navios:** O sistema deve simular a localização de dois navios no tabuleiro, um posicionado verticalmente e outro horizontalmente.
-- **Utilização de Vetores:** Os navios serão posicionados utilizando vetores bidimensionais, com coordenadas X e Y.
-- **Exibição de Coordenadas:** O sistema deve exibir as coordenadas de cada parte dos navios no console utilizando `printf`.
+3. **Uso de habilidades especiais**:
+   - Habilidades especiais são implementadas em três formas:
+     - **Cone**: Afeta células cônicas a partir de um ponto central.
+     - **Cruz**: Afeta células em formato de cruz a partir de um ponto central.
+     - **Octaedro**: Afeta células em padrões mais amplos e simétricos.
+   - A habilidade básica é representada pelo valor `5`.
+   - Células sobrepostas a um navio (raio de influência da habilidade) são representadas por `1`.
 
-### 📥 Entrada de Dados:
-- Os valores serão inseridos manualmente por meio de variáveis no código.
+4. **Exibição do tabuleiro final**:
+   - O tabuleiro é exibido com:
+     - Colunas rotuladas com letras (`A` a `J`).
+     - Linhas numeradas (`1` a `10`).
 
-### 📤 Saída de Dados:
-- Após o posicionamento, o sistema deve exibir as coordenadas dos navios de forma clara e organizada.
+## 📋 Regras e Lógica do Jogo
 
----
+- **Navios**:
+  - O posicionamento dos navios leva em conta índices centrais previamente configurados.
+  - Tipos de posicionamento:
+    - Vertical (para baixo).
+    - Horizontal (para a direita).
+    - Diagonal subindo e descendo.
 
-## 🏅 Nível Aventureiro
+- **Habilidades especiais**:
+  - As habilidades verificam se há um navio na área de influência. Se houver, o valor da célula será alterado para `1`. Caso contrário, será `5`.
 
-No nível Aventureiro, você expandirá o tabuleiro e adicionará mais navios, incluindo posicionamentos na diagonal.
-
-### 🆕 Diferença em relação ao Nível Novato:
-- **Tabuleiro 10x10:** O tabuleiro será expandido para uma matriz 10x10.
-- **Posicionamento de Quatro Navios:** O sistema deverá posicionar quatro navios, incluindo dois na diagonal.
-- **Exibição Completa do Tabuleiro:** O sistema exibirá toda a matriz, onde 0 indica uma posição sem navio e 3 indica uma posição ocupada.
-
-### 🚩 Novas Funcionalidades:
-- **Matriz 10x10:** Implementação de uma matriz maior para representar o tabuleiro.
-- **Posicionamento de Navios na Diagonal:** Adição de navios posicionados diagonalmente.
-- **Exibição do Tabuleiro Completo:** O sistema mostrará o tabuleiro completo, indicando as posições ocupadas e livres.
-
----
-
-## 🏅 Nível Mestre
-
-No nível Mestre, o desafio se intensifica com a implementação de habilidades especiais representadas por matrizes específicas no tabuleiro.
-
-### 🆕 Diferença em relação ao Nível Aventureiro:
-- **Habilidades Especiais:** O sistema deve definir áreas de habilidades utilizando matrizes com padrões específicos: cone, cruz e octaedro.
-- **Estruturas de Repetição Aninhadas:** Utilização de loops aninhados para percorrer e preencher as áreas afetadas pelas habilidades.
-
-### 🚩 Novas Funcionalidades:
-- **Matrizes de Habilidades:** Implementação de três matrizes para representar habilidades especiais no tabuleiro.
-- **Padrões de Habilidade:** Criação de padrões específicos (cone, cruz, octaedro) para definir as áreas afetadas.
-- **Exibição das Áreas Atingidas:** O sistema exibirá o tabuleiro com as áreas afetadas, utilizando 0 para áreas não afetadas e 1 para áreas afetadas.
-
-### Exemplo de Saída:
-
-Exemplo e comando:
-printf("%d ",matriz[i][j]);
-
-### Exemplo de saída de habilidade em cone:
-
-0 0 1 0 0
-
-0 1 1 1 0
-
-1 1 1 1 1
-
-### Exemplo de saída de habilidade em octaedro:
-
-0 0 1 0 0
-
-0 1 1 1 0
-
-0 0 1 0 0
-
-### Exemplo de saída de habilidade em cruz:
-
-0 0 1 0 0
-
-1 1 1 1 1
-
-0 0 1 0 0
+- **Validação de limites**:
+  - O código garante que nenhum navio ou habilidade ultrapassará as dimensões do tabuleiro.
 
 
+### Principais seções
+1. **Inicialização do Tabuleiro**:
+   - A matriz principal `tabuleiro` é preenchida com valores `0`.
+
+2. **Correção de Coordenadas**:
+   - As coordenadas fornecidas (do tipo `char`) são ajustadas para índices baseados em `0`.
+
+3. **Posicionamento**:
+   - Navios e habilidades são posicionados no tabuleiro utilizando loops `for`.
+
+4. **Impressão**:
+   - O tabuleiro é exibido ao final, com linhas e colunas rotuladas.
 
 
+## ✨ Créditos
+
+- **Aluno**: Jairçon Freitas Sodré Pereira Júnior.
+- **Disciplina**: Introdução à Programação de Computadores.
+- **Nível**: Mestre.
 
 ---
 
-## 📋 Requisitos Funcionais Comuns
-- **Entrada de Dados:** Os valores serão inseridos manualmente por meio de variáveis no código.
-- **Utilização de Matrizes:** Os dados devem ser estruturados de maneira eficiente utilizando matrizes.
-- **Exibição de Resultados:** Os resultados devem ser exibidos de forma clara e organizada.
-
-## 📌 Requisitos Não Funcionais Comuns
-- **Performance:** O sistema deve executar operações de forma eficiente, sem atrasos perceptíveis.
-- **Documentação:** O código deve ser bem documentado, com comentários claros sobre a função de cada parte do código.
-- **Manutenibilidade:** O código deve ser organizado e fácil de entender, facilitando futuras manutenções e expansões.
-
----
-
-Boa sorte no desenvolvimento deste desafio! Aproveite para aprimorar suas habilidades em vetores e matrizes enquanto progride pelos níveis.
-
-Equipe de Ensino - MateCheck
+Se precisar de ajustes ou detalhes específicos, é só avisar! 😊
